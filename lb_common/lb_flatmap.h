@@ -61,7 +61,7 @@ public:
 
     std::pair<iterator, bool> insert(std::pair<Key, T> && value) {
         iterator it = lower_bound(value.first);
-        if(it->first == value.first) {
+        if(it != end() && it->first == value.first) {
             return {it, false};
         }
         return {container.insert(it, value), true};
