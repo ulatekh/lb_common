@@ -12,6 +12,7 @@ namespace lb {
         using boost::filesystem::directory_iterator;
         using boost::filesystem::exists;
         using boost::filesystem::file_size;
+        using file_time_type = std::time_t;
         using boost::filesystem::hash_value;
         using boost::filesystem::is_directory;
         using boost::filesystem::is_regular_file;
@@ -36,6 +37,7 @@ namespace lb {
         using std::filesystem::directory_iterator;
         using std::filesystem::exists;
         using std::filesystem::file_size;
+        using std::filesystem::file_time_type;
         using std::filesystem::hash_value;
         using std::filesystem::is_directory;
         using std::filesystem::is_regular_file;
