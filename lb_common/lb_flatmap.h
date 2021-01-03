@@ -73,4 +73,42 @@ public:
             insert(*it);
         }
     }
+
+    T & at(const Key & key) {
+        iterator it = find(key);
+        if(it == end()) {
+            throw std::out_of_range("Key does not exist in container");
+        } else {
+            return *it;
+        }
+    }
+
+    const T & at(const Key & key) const {
+        const_iterator it = find(key);
+        if(it == cend()) {
+            throw std::out_of_range("Key does not exist in container");
+        } else {
+            return *it;
+        }
+    }
+
+    T & operator[](const Key & key) {
+        iterator it = find(key);
+        if(it != end()) {
+            return it->second;
+        } else {
+            container.emplace_back(key, T());
+            return container.back().second;
+        }
+    }
+
+    T & operator[](Key && key) {
+        const_iterator it = find(key);
+        if(it != cend()) {
+            return it->second;
+        } else {
+            container.emplace_back(std::move(key), T());
+            return container.back().second;
+        }
+    }
 };
