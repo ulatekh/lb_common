@@ -12,28 +12,32 @@
 #include <string_view>
 #include <vector>
 
-inline std::vector<std::string> string_split(const std::string & haystack, char needle) {
+inline void string_split(std::vector<std::string> & out, const std::string & haystack, char needle) {
     size_t segment_begin = 0;
-    std::vector<std::string> ret;
     while(true) {
         size_t needle_position = haystack.find(needle, segment_begin);
 
         if(std::string::npos == needle_position) {
-            ret.emplace_back(haystack.substr(segment_begin));
-            return ret;
+            out.emplace_back(haystack.substr(segment_begin));
+            return;
         } else {
-            ret.emplace_back(haystack.substr(segment_begin, needle_position - segment_begin));
+            out.emplace_back(haystack.substr(segment_begin, needle_position - segment_begin));
             segment_begin = needle_position + 1;
         }
     }
 }
 
+inline std::vector<std::string> string_split(const std::string & haystack, char needle) {
+    std::vector<std::string> ret;
+    string_split(ret, haystack, needle);
+    return ret;
+}
+
 // container overload
 template <class Container>
-inline std::vector<std::string> string_split(const std::string & haystack, const Container & needles) {
+inline void string_split(std::vector<std::string> & out, const std::string & haystack, const Container & needles) {
     static_assert(std::is_same<typename Container::value_type, char>::value || std::is_same<typename Container::value_type, const char>::value);
     size_t segment_begin = 0;
-    std::vector<std::string> ret;
     while(true) {
 
         size_t needle_position = std::numeric_limits<size_t>::max();
@@ -42,13 +46,19 @@ inline std::vector<std::string> string_split(const std::string & haystack, const
         }
 
         if(std::numeric_limits<size_t>::max() == needle_position) {
-            ret.emplace_back(haystack.substr(segment_begin));
-            return ret;
+            out.emplace_back(haystack.substr(segment_begin));
+            return;
         } else {
-            ret.emplace_back(haystack.substr(segment_begin, needle_position - segment_begin));
+            out.emplace_back(haystack.substr(segment_begin, needle_position - segment_begin));
             segment_begin = needle_position + 1;
         }
     }
+}
+template <class Container>
+inline std::vector<std::string> string_split(const std::string & haystack, const Container & needles) {
+    std::vector<std::string> ret;
+    string_split(ret, haystack, needles);
+    return ret;
 }
 
 inline std::string string_join(const std::vector<std::string> & segments, const std::string & joiner) {
