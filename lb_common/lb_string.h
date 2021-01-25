@@ -148,7 +148,7 @@ private:
 
 // Case insensitive lexicographical compare, inspired by the 
 // idea (but not implementation of) boost::ilexicographical_compare
-bool ilexicographical_compare(const std::string & s1, const std::string & s2, const std::locale & locale = std::locale()) {
+inline bool ilexicographical_compare(const std::string & s1, const std::string & s2, const std::locale & locale = std::locale()) {
     std::string::const_iterator it1 = s1.cbegin();
     std::string::const_iterator it2 = s2.cbegin();
 
