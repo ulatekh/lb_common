@@ -13,6 +13,7 @@
 #include <vector>
 
 inline void string_split(std::vector<std::string> & out, const std::string & haystack, char needle) {
+    out.clear();
     size_t segment_begin = 0;
     while(true) {
         size_t needle_position = haystack.find(needle, segment_begin);
@@ -36,6 +37,7 @@ inline std::vector<std::string> string_split(const std::string & haystack, char 
 // container overload
 template <class Container>
 inline void string_split(std::vector<std::string> & out, const std::string & haystack, const Container & needles) {
+    out.clear();
     static_assert(std::is_same<typename Container::value_type, char>::value || std::is_same<typename Container::value_type, const char>::value);
     size_t segment_begin = 0;
     while(true) {

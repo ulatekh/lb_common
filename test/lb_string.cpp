@@ -36,6 +36,17 @@ void test_string_split() {
 
         assert(actual == expected);
     }
+    { // repeat inplace
+        std::string input = "a,b";
+        std::vector<std::string> expected = {"a", "b"};
+        std::vector<std::string> actual;
+        string_split(actual, input, ',');
+        assert(actual.size() == 2);
+        assert(actual == expected);
+        string_split(actual, input, ',');
+        assert(actual.size() == 2);
+        assert(actual == expected);
+    }
 }
 
 void test_string_strip() {
