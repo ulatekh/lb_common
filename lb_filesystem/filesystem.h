@@ -3,6 +3,7 @@
 #if __APPLE__
 
 #include <boost/filesystem.hpp>
+#include <boost/functional/hash.hpp> // Needed for boost::filesystem::hash_value
 namespace lb {
     namespace filesystem {
         using path = boost::filesystem::path;
