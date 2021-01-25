@@ -61,7 +61,32 @@ void test_string_strip() {
     }
 }
 
+void test_ilexicographical_compare() {
+    assert(false == ilexicographical_compare("a", "a"));
+
+    assert(true == ilexicographical_compare("a", "b"));
+    assert(false == ilexicographical_compare("b", "a"));
+
+    assert(false == ilexicographical_compare("ab", "a"));
+    assert(true == ilexicographical_compare("a", "ab"));
+
+    assert(true == ilexicographical_compare("ab", "ac"));
+    assert(false == ilexicographical_compare("ac", "ab"));
+
+    // case insensitivity:
+    assert(false == ilexicographical_compare("a", "A"));
+    assert(false == ilexicographical_compare("A", "a"));
+
+    assert(true == ilexicographical_compare("a", "B"));
+    assert(true == ilexicographical_compare("A", "b"));
+
+    // long:
+    assert(false == ilexicographical_compare("housekeeper", "House"));
+    assert(true == ilexicographical_compare("house", "Housekeeper"));
+}
+
 int main() {
     test_string_split();
     test_string_strip();
+    test_ilexicographical_compare();
 }

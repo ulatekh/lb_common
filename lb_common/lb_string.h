@@ -146,6 +146,35 @@ private:
     const std::locale& loc_;
 };
 
+// Case insensitive lexicographical compare, inspired by the 
+// idea (but not implementation of) boost::ilexicographical_compare
+bool ilexicographical_compare(const std::string & s1, const std::string & s2, const std::locale & locale = std::locale()) {
+    std::string::const_iterator it1 = s1.cbegin();
+    std::string::const_iterator it2 = s2.cbegin();
+
+    while(true) {
+        if(it1 == s1.cend() && it2 == s2.cend()) {
+            return false;
+        }
+        if(it1 == s1.cend() && it2 != s2.cend()) {
+            return true;
+        }
+        if(it1 != s1.cend() && it2 == s2.cend()) {
+            return false;
+        }
+
+        char c1 = std::tolower(*it1, locale);
+        char c2 = std::tolower(*it2, locale);
+
+        if(c1 != c2) {
+            return c1 < c2;
+        }
+
+        it1++;
+        it2++;
+    }
+}
+
 // find substring (case insensitive)
 template<typename CharT>
 inline size_t string_ifind( const std::basic_string<CharT>& haystack, const std::basic_string<CharT>& needle, size_t pos = 0, const std::locale& loc = std::locale() )
