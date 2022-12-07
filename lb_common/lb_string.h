@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <limits>
 #include <locale>
 #include <string>
 #include <string_view>
